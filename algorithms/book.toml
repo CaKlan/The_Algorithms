@@ -1,0 +1,9 @@
+[book]
+authors = ["CaKlan"]
+language = "kr"
+multilingual = false
+src = "src"
+title = "The Algorithms"
+
+[output.html]
+mathjax-support = true
