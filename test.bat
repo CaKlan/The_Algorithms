@@ -5,5 +5,5 @@ git add . && ^
 git commit -m "main release" && ^
 git push origin main && ^
 cd ./algorithms ^
-start ./algorithms/book/release.bat
+start %~dp0/algorithms/book/release.bat
 
