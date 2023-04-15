@@ -1,3 +1,5 @@
+echo test
+
 git branch main | ^
 git checkout main | ^
 git pull origin main && ^
