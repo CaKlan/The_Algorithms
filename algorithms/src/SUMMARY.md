@@ -7,7 +7,7 @@
 
 # Algorithms
 - [정렬](./sort/sort.md)
-    - [선택 정렬](./sort/selection_sort.md)
+    - [선택 정렬](./sort/select_sort.md)
     - [거품 정렬](./sort/bubble_sort.md)
     - [삽입 정렬](./sort/insertion_sort.md)
     - [힙 정렬](./sort/heap_sort.md)
