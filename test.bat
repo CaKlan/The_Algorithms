@@ -4,7 +4,7 @@ git pull origin main && ^
 git add . && ^
 git commit -m "main release" && ^
 git push origin main && ^
-cd algorithms ^
+cd ./algorithms ^
 mdbook build && ^
 call ./algorithms/book/release.bat
 
