@@ -11,6 +11,7 @@
     - [거품 정렬](./sort/bubble_sort.md)
     - [삽입 정렬](./sort/insertion_sort.md)
     - [힙 정렬](./sort/heap_sort.md)
+    - [퀵 정렬](./sort/quick_sort.md)
 - [그래프](./graph/graph.md)
     - [BFS](./graph/bfs.md)
     - [DFS](./graph/dfs.md)
