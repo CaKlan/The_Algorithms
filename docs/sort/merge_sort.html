@@ -3,7 +3,7 @@
     <head>
         <!-- Book generated using mdBook -->
         <meta charset="UTF-8">
-        <title>거품 정렬 - The Algorithms</title>
+        <title>병합 정렬 - The Algorithms</title>
 
 
         <!-- Custom HTML head -->
@@ -85,7 +85,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Data Structure</li><li class="chapter-item expanded "><a href="../data_structure/heap.html"><strong aria-hidden="true">1.</strong> 힙</a></li><li class="chapter-item expanded affix "><li class="part-title">Algorithms</li><li class="chapter-item expanded "><a href="../sort/sort.html"><strong aria-hidden="true">2.</strong> 정렬</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../sort/select_sort.html"><strong aria-hidden="true">2.1.</strong> 선택 정렬</a></li><li class="chapter-item expanded "><a href="../sort/bubble_sort.html" class="active"><strong aria-hidden="true">2.2.</strong> 거품 정렬</a></li><li class="chapter-item expanded "><a href="../sort/insertion_sort.html"><strong aria-hidden="true">2.3.</strong> 삽입 정렬</a></li><li class="chapter-item expanded "><a href="../sort/heap_sort.html"><strong aria-hidden="true">2.4.</strong> 힙 정렬</a></li><li class="chapter-item expanded "><a href="../sort/quick_sort.html"><strong aria-hidden="true">2.5.</strong> 퀵 정렬</a></li><li class="chapter-item expanded "><a href="../sort/merge_sort.html"><strong aria-hidden="true">2.6.</strong> 병합 정렬</a></li></ol></li><li class="chapter-item expanded "><a href="../graph/graph.html"><strong aria-hidden="true">3.</strong> 그래프</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../graph/bfs.html"><strong aria-hidden="true">3.1.</strong> BFS</a></li><li class="chapter-item expanded "><a href="../graph/dfs.html"><strong aria-hidden="true">3.2.</strong> DFS</a></li></ol></li><li class="chapter-item expanded "><a href="../tree/tree.html"><strong aria-hidden="true">4.</strong> 트리</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tree/bfs.html"><strong aria-hidden="true">4.1.</strong> BFS</a></li><li class="chapter-item expanded "><a href="../tree/dfs.html"><strong aria-hidden="true">4.2.</strong> DFS</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Math</li><li class="chapter-item expanded "><a href="../chapter_1.html"><strong aria-hidden="true">5.</strong> Chapter 1</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Data Structure</li><li class="chapter-item expanded "><a href="../data_structure/heap.html"><strong aria-hidden="true">1.</strong> 힙</a></li><li class="chapter-item expanded affix "><li class="part-title">Algorithms</li><li class="chapter-item expanded "><a href="../sort/sort.html"><strong aria-hidden="true">2.</strong> 정렬</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../sort/select_sort.html"><strong aria-hidden="true">2.1.</strong> 선택 정렬</a></li><li class="chapter-item expanded "><a href="../sort/bubble_sort.html"><strong aria-hidden="true">2.2.</strong> 거품 정렬</a></li><li class="chapter-item expanded "><a href="../sort/insertion_sort.html"><strong aria-hidden="true">2.3.</strong> 삽입 정렬</a></li><li class="chapter-item expanded "><a href="../sort/heap_sort.html"><strong aria-hidden="true">2.4.</strong> 힙 정렬</a></li><li class="chapter-item expanded "><a href="../sort/quick_sort.html"><strong aria-hidden="true">2.5.</strong> 퀵 정렬</a></li><li class="chapter-item expanded "><a href="../sort/merge_sort.html" class="active"><strong aria-hidden="true">2.6.</strong> 병합 정렬</a></li></ol></li><li class="chapter-item expanded "><a href="../graph/graph.html"><strong aria-hidden="true">3.</strong> 그래프</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../graph/bfs.html"><strong aria-hidden="true">3.1.</strong> BFS</a></li><li class="chapter-item expanded "><a href="../graph/dfs.html"><strong aria-hidden="true">3.2.</strong> DFS</a></li></ol></li><li class="chapter-item expanded "><a href="../tree/tree.html"><strong aria-hidden="true">4.</strong> 트리</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tree/bfs.html"><strong aria-hidden="true">4.1.</strong> BFS</a></li><li class="chapter-item expanded "><a href="../tree/dfs.html"><strong aria-hidden="true">4.2.</strong> DFS</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Math</li><li class="chapter-item expanded "><a href="../chapter_1.html"><strong aria-hidden="true">5.</strong> Chapter 1</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -146,44 +146,70 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h1 id="거품-정렬"><a class="header" href="#거품-정렬">거품 정렬</a></h1>
+                        <h1 id="병합-정렬"><a class="header" href="#병합-정렬">병합 정렬</a></h1>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
-</span><span class="boring">fn main() {
-</span>let mut test = [2, 6, 3, 4, 9, 5, 7, 1];
+</span>
+<span class="boring">fn main() {
+</span>fn merge(arr : &amp;mut [i32], sorted : &amp;mut Vec&lt;i32&gt;, left : usize, mid : usize, right : usize) {
+    let mut i = left;
+    let mut j = mid+1;
+    let mut k = left;
 
-fn bubble_sort(arr : &amp;mut [i32]){
-    let mut flag = false;
-    let mut swap = 0; // test
-    for i in 0..arr.len()-1 {
-        for j in 0..arr.len() - 1 - i {
-            if arr[j] &gt; arr[j+1] {
-                flag = true;
-                (arr[j], arr[j+1]) = (arr[j+1], arr[j]);
-                swap += 1;
-            }
-        }
-
-        if !flag{
-            break;
+    while i &lt;= mid &amp;&amp; j &lt;= right {
+        if arr[i] &lt;= arr[j]{
+            sorted[k] = arr[i];
+            k += 1;
+            i += 1;
+        } else {
+            sorted[k] = arr[j];
+            k += 1;
+            j += 1;
         }
     }
 
-    println!(&quot;swap : {:?}&quot;, swap);
+    if i &gt; mid {
+        for l in j..=right{
+            sorted[k] = arr[l];
+            k += 1;
+        }
+    } else {
+        for l in i..=mid{
+            sorted[k] = arr[l];
+            k += 1;
+        }
+    }
+
+    for l in left..=right{
+        arr[l] = sorted[l];
+    }
 }
 
-bubble_sort(&amp;mut test);
-print!(&quot;{:?}&quot;, test);
+fn merge_sort(arr : &amp;mut [i32], sorted : &amp;mut Vec&lt;i32&gt;, left : usize, right : usize){
+    if left &lt; right{
+        let mid = (left + right) / 2;
+        merge_sort(arr, sorted, left, mid);
+        merge_sort(arr, sorted, mid+1, right);
+        merge(arr, sorted, left, mid, right);
+    }
+}
+let mut test = vec![5, 6, 3, 4, 9, 2, 7, 1];
+
+let size = test.len();
+let mut sorted = vec![0;size];
+merge_sort(&amp;mut test, &amp;mut sorted, 0, size - 1);
+println!(&quot;{:?}&quot;, sorted);
+
 <span class="boring">}</span></code></pre></pre>
 
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
                         <!-- Mobile navigation buttons -->
-                            <a rel="prev" href="../sort/select_sort.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                            <a rel="prev" href="../sort/quick_sort.html" class="mobile-nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../sort/insertion_sort.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../graph/graph.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -193,11 +219,11 @@ print!(&quot;{:?}&quot;, test);
             </div>
 
             <nav class="nav-wide-wrapper" aria-label="Page navigation">
-                    <a rel="prev" href="../sort/select_sort.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
+                    <a rel="prev" href="../sort/quick_sort.html" class="nav-chapters previous" title="Previous chapter" aria-label="Previous chapter" aria-keyshortcuts="Left">
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../sort/insertion_sort.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../graph/graph.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>

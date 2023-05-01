@@ -85,7 +85,7 @@
 
         <nav id="sidebar" class="sidebar" aria-label="Table of contents">
             <div class="sidebar-scrollbox">
-                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Data Structure</li><li class="chapter-item expanded "><a href="../data_structure/heap.html"><strong aria-hidden="true">1.</strong> 힙</a></li><li class="chapter-item expanded affix "><li class="part-title">Algorithms</li><li class="chapter-item expanded "><a href="../sort/sort.html"><strong aria-hidden="true">2.</strong> 정렬</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../sort/select_sort.html"><strong aria-hidden="true">2.1.</strong> 선택 정렬</a></li><li class="chapter-item expanded "><a href="../sort/bubble_sort.html"><strong aria-hidden="true">2.2.</strong> 거품 정렬</a></li><li class="chapter-item expanded "><a href="../sort/insertion_sort.html"><strong aria-hidden="true">2.3.</strong> 삽입 정렬</a></li><li class="chapter-item expanded "><a href="../sort/heap_sort.html"><strong aria-hidden="true">2.4.</strong> 힙 정렬</a></li><li class="chapter-item expanded "><a href="../sort/quick_sort.html" class="active"><strong aria-hidden="true">2.5.</strong> 퀵 정렬</a></li></ol></li><li class="chapter-item expanded "><a href="../graph/graph.html"><strong aria-hidden="true">3.</strong> 그래프</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../graph/bfs.html"><strong aria-hidden="true">3.1.</strong> BFS</a></li><li class="chapter-item expanded "><a href="../graph/dfs.html"><strong aria-hidden="true">3.2.</strong> DFS</a></li></ol></li><li class="chapter-item expanded "><a href="../tree/tree.html"><strong aria-hidden="true">4.</strong> 트리</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tree/bfs.html"><strong aria-hidden="true">4.1.</strong> BFS</a></li><li class="chapter-item expanded "><a href="../tree/dfs.html"><strong aria-hidden="true">4.2.</strong> DFS</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Math</li><li class="chapter-item expanded "><a href="../chapter_1.html"><strong aria-hidden="true">5.</strong> Chapter 1</a></li></ol>
+                <ol class="chapter"><li class="chapter-item expanded affix "><a href="../index.html">Introduction</a></li><li class="chapter-item expanded affix "><li class="part-title">Data Structure</li><li class="chapter-item expanded "><a href="../data_structure/heap.html"><strong aria-hidden="true">1.</strong> 힙</a></li><li class="chapter-item expanded affix "><li class="part-title">Algorithms</li><li class="chapter-item expanded "><a href="../sort/sort.html"><strong aria-hidden="true">2.</strong> 정렬</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../sort/select_sort.html"><strong aria-hidden="true">2.1.</strong> 선택 정렬</a></li><li class="chapter-item expanded "><a href="../sort/bubble_sort.html"><strong aria-hidden="true">2.2.</strong> 거품 정렬</a></li><li class="chapter-item expanded "><a href="../sort/insertion_sort.html"><strong aria-hidden="true">2.3.</strong> 삽입 정렬</a></li><li class="chapter-item expanded "><a href="../sort/heap_sort.html"><strong aria-hidden="true">2.4.</strong> 힙 정렬</a></li><li class="chapter-item expanded "><a href="../sort/quick_sort.html" class="active"><strong aria-hidden="true">2.5.</strong> 퀵 정렬</a></li><li class="chapter-item expanded "><a href="../sort/merge_sort.html"><strong aria-hidden="true">2.6.</strong> 병합 정렬</a></li></ol></li><li class="chapter-item expanded "><a href="../graph/graph.html"><strong aria-hidden="true">3.</strong> 그래프</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../graph/bfs.html"><strong aria-hidden="true">3.1.</strong> BFS</a></li><li class="chapter-item expanded "><a href="../graph/dfs.html"><strong aria-hidden="true">3.2.</strong> DFS</a></li></ol></li><li class="chapter-item expanded "><a href="../tree/tree.html"><strong aria-hidden="true">4.</strong> 트리</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="../tree/bfs.html"><strong aria-hidden="true">4.1.</strong> BFS</a></li><li class="chapter-item expanded "><a href="../tree/dfs.html"><strong aria-hidden="true">4.2.</strong> DFS</a></li></ol></li><li class="chapter-item expanded "><li class="part-title">Math</li><li class="chapter-item expanded "><a href="../chapter_1.html"><strong aria-hidden="true">5.</strong> Chapter 1</a></li></ol>
             </div>
             <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
         </nav>
@@ -147,6 +147,8 @@
                 <div id="content" class="content">
                     <main>
                         <h1 id="퀵-정렬"><a class="header" href="#퀵-정렬">퀵 정렬</a></h1>
+<p>기본적인 유형입니다. 함수의 인자에 usize를 사용하면 out of index 오류가 발생합니다.
+또한 피벗을 첫번째로 잡을 경우 최악의 경우 n^2의 실행 시간이 나옵니다.</p>
 <pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
 </span><span class="boring">fn main() {
 </span>let mut test = vec![5, 6, 3, 4, 9, 2, 7, 1];
@@ -191,6 +193,14 @@ fn quick_sort(arr : &amp;mut Vec&lt;i32&gt;, left : isize, right : isize){
     }
 }
 <span class="boring">}</span></code></pre></pre>
+<p>따라서 무작위로 피벗을 잡는 퀵 소트를 구현할 필요가 있습니다.</p>
+<pre><pre class="playground"><code class="language-rust"><span class="boring">#![allow(unused)]
+</span><span class="boring">fn main() {
+</span>use rand::Rng;
+let mut rng = rand::thread_rng();
+
+println!(&quot;{}&quot;, rng.gen_range(0..10));
+<span class="boring">}</span></code></pre></pre>
 
                     </main>
 
@@ -200,7 +210,7 @@ fn quick_sort(arr : &amp;mut Vec&lt;i32&gt;, left : isize, right : isize){
                                 <i class="fa fa-angle-left"></i>
                             </a>
 
-                            <a rel="next" href="../graph/graph.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                            <a rel="next" href="../sort/merge_sort.html" class="mobile-nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                                 <i class="fa fa-angle-right"></i>
                             </a>
 
@@ -214,7 +224,7 @@ fn quick_sort(arr : &amp;mut Vec&lt;i32&gt;, left : isize, right : isize){
                         <i class="fa fa-angle-left"></i>
                     </a>
 
-                    <a rel="next" href="../graph/graph.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
+                    <a rel="next" href="../sort/merge_sort.html" class="nav-chapters next" title="Next chapter" aria-label="Next chapter" aria-keyshortcuts="Right">
                         <i class="fa fa-angle-right"></i>
                     </a>
             </nav>
